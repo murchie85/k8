@@ -61,6 +61,7 @@ Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.0", GitCom
   
 ```
 kubectl get services  
+kubectl get all // better
 ```  
   
 # Creating Deployment
@@ -73,19 +74,19 @@ kubectl get services
 kubectl create -h
 ```  
     
-- output  
+- Example  
 
 ```sh
 Usage:
   kubectl create deployment NAME --image=image [--dry-run] [options]
 ```
-  
-- Example  
+
+## Creating NGINX deployment
   
 ```sh
-Examples:
-  # Create a new deployment named my-dep that runs the busybox image.
-  kubectl create deployment my-dep --image=busybox
+
+  # Create a new deployment named nginx-depl that uses nginx image from docker
+ kubectl create deployment nginx-depl --image=nginx 
 ```
 
 
@@ -95,10 +96,13 @@ Examples:
 
 
 
+## Useful KUBECTL Commands    
 
-  
+```
+kubectl delete deployment nginx-depl
+```
 
-## Useful Commands  
+## Useful MINIKUBE commands    
   
 
   
