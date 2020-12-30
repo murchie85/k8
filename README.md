@@ -70,17 +70,7 @@ kubectl get all // better
 - We create the layer above i.e. deployments 
   
 ## Help for create command.  
-```sh 
-kubectl create -h
-```  
     
-- Example  
-
-```sh
-Usage:
-  kubectl create deployment NAME --image=image [--dry-run] [options]
-```
-
 ## Creating NGINX deployment
   
 ```sh
@@ -88,13 +78,28 @@ Usage:
   # Create a new deployment named nginx-depl that uses nginx image from docker
  kubectl create deployment nginx-depl --image=nginx 
 ```
-
-**Check pod and deployment**  
+- Creates a pod
+- Creates a replicaset
+- creates a deployment
   
 ```
 kubectl get pod
 kubectl get depoloyment
+kubectl get replicaset
 ```  
+    
+
+
+## Create example usage    
+```sh 
+kubectl create -h  
+  
+### example usage  
+Usage:
+  kubectl create deployment NAME --image=image [--dry-run] [options]
+```  
+      
+In the options we can specify more than one replica set.  
   
 
   
@@ -205,4 +210,20 @@ Troubleshooting Commands:
 Other Commands:
   completion     Generate command completion for a shell
 
-```
+```  
+  
+## Theory  
+  
+
+==============================
+|  **DEPLOYMENT** manages a 
+|    
+|  
+|  **REPLICASET** manages a 
+|  
+|    
+|  **POD** manages a  
+|    
+|  **container**  
+|  
+===========================
