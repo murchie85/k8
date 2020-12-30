@@ -1,6 +1,14 @@
-# K8 steps  
+# K8 in a Nutshell 
+    
+
+![k8 image](https://39lxv6m650h1g391z2daj1l1-wpengine.netdna-ssl.com/assets/blog-kubernetes-og.jpg)  
   
-### Start up minikube  
+
+# Navigation  
+  
+[Start up minikub e](Start-up-minikube)
+  
+### Start up minikube
   
  
 ```
@@ -34,6 +42,26 @@ Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.5", GitCom
 
 Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.0", GitCommit:"af46c47ce925f4c4ad5cc8d1fca46c7b77d13b38", GitTreeState:"clean", BuildDate:"2020-12-08T17:51:19Z", GoVersion:"go1.15.5", Compiler:"gc", Platform:"linux/amd64"}
 ```
+  
+
+
+**EVERYTHING IS KUBECTL** from here on.  
+  
+*minikube is just for starting the cluster*  
+ 
+
+
+
+  
+
+
+
+
+
+  
+
+## Useful Commands  
+  
 
   
 ```
@@ -44,20 +72,7 @@ minikube delete
 minikube dashboard
 minkube puase
 minikube unpause
-
-
 ```
-
-
-
-
-
-
-  
-
-## Useful  
-
-
 
 
 
