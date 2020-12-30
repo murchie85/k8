@@ -32,6 +32,7 @@ kubectl edit deployment nginx-depl
   
 kubectl exec -it[pod name] -- bin/bash 
   
+kubectl delete deployment nginx-depl  
 
 ```
   
