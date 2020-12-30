@@ -52,9 +52,39 @@ Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.5", GitCom
 Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.0", GitCommit:"af46c47ce925f4c4ad5cc8d1fca46c7b77d13b38", GitTreeState:"clean", BuildDate:"2020-12-08T17:51:19Z", GoVersion:"go1.15.5", Compiler:"gc", Platform:"linux/amd64"}
 ```
   
+  
+## get services 
+  
+- command  
+  
+```
+kubectl get services  
+```  
+  
+# Creating Deployment  
+  
+- We don't create pods
+- We create the layer above i.e. deployments 
+  
+## Help for create command.  
+```sh 
+kubectl create -h
+```  
+    
+- output  
 
-
-
+```sh
+Usage:
+  kubectl create deployment NAME --image=image [--dry-run] [options]
+```
+  
+- Example  
+  
+```sh
+Examples:
+  # Create a new deployment named my-dep that runs the busybox image.
+  kubectl create deployment my-dep --image=busybox
+```
 
 
 
