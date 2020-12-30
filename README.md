@@ -4,11 +4,13 @@
 ![k8 image](https://39lxv6m650h1g391z2daj1l1-wpengine.netdna-ssl.com/assets/blog-kubernetes-og.jpg)  
   
 
-# Navigation  
+# Navigation
   
 1. [Start up minikube](#Start-up-minikube)   
-2. [Create a deployment](#Creating-Deployment) 
-3. [## Troubleshooting ](#Troubleshooting)   
+  2. [Create a deployment](#Creating-Deployment) 
+  3. [Edit Deployment Image](#Edit-Deployment-Image)
+  4. [SSH into pod](#SSH-into-pod)
+5. [Troubleshooting ](#Troubleshooting)   
 
   
 ### Start up minikube
@@ -66,7 +68,10 @@ kubectl get all // better
 ```  
   
 # Creating Deployment
-  
+    
+
+[Navigation](#Navigation)  
+
 - We don't create pods
 - We create the layer above i.e. deployments 
   
@@ -96,7 +101,7 @@ kubectl get replicaset
     
     
 
-## Edit Deployment Image  
+## Edit Deployment Image
 
   
 (You only ever need to edit stuff via deployment)  
@@ -118,6 +123,10 @@ kubectl edit deployment nginx-depl
   
 ## Troubleshooting
 
+[Navigation](#Navigation)  
+  
+  
+
 ```
 kubectl logs [podname]
 
@@ -125,8 +134,28 @@ if we need more info
   
 kubectl describe pod [podname]
 
+```  
+- output  
+  
 ```
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m25s  default-scheduler  Successfully assigned default/nginx-depl-7fc44fc5d4-ncwkx to minikube
+  Normal  Pulling    4m25s  kubelet, minikube  Pulling image "nginx:1.16"
+  Normal  Pulled     4m23s  kubelet, minikube  Successfully pulled image "nginx:1.16" in 1.435142631s
+  Normal  Created    4m23s  kubelet, minikube  Created container nginx
+  Normal  Started    4m23s  kubelet, minikube  Started container nginx
+  ```
 
+
+  
+
+## SSH into pod
+
+```
+kubectl exec -it[pod name] -- bin/bash
+```
+  
 
 
 ## Create example usage    
