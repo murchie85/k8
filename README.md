@@ -6,7 +6,9 @@
 
 # Navigation  
   
-[Start up minikube](#Start-up-minikube)
+1. [Start up minikube](#Start-up-minikube)   
+2. [Create a deployment](#Creating-Deployment)    
+
   
 ### Start up minikube
   
@@ -61,7 +63,7 @@ Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.0", GitCom
 kubectl get services  
 ```  
   
-# Creating Deployment  
+# Creating Deployment
   
 - We don't create pods
 - We create the layer above i.e. deployments 
