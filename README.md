@@ -89,9 +89,45 @@ Usage:
  kubectl create deployment nginx-depl --image=nginx 
 ```
 
-
+**Check pod and deployment**  
+  
+```
+kubectl get pod
+kubectl get depoloyment
+```  
+  
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -99,6 +135,9 @@ Usage:
 ## Useful KUBECTL Commands    
 
 ```
+kubectl get all    // get everything
+  
+
 kubectl delete deployment nginx-depl
 ```
 
