@@ -6,7 +6,7 @@
 
 # Navigation  
   
-[Start up minikub e](Start-up-minikube)
+[Start up minikube](#Start-up-minikube)
   
 ### Start up minikube
   
