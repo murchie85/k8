@@ -6,12 +6,35 @@
 
 # Navigation
   
+0. [Full Command Sequence ](#Full-Command-Sequence)
 1. [Start up minikube](#Start-up-minikube)   
-  2. [Create a deployment](#Creating-Deployment) 
-  3. [Edit Deployment Image](#Edit-Deployment-Image)
-  4. [SSH into pod](#SSH-into-pod)
+2. [Create a deployment](#Creating-Deployment) 
+3. [Edit Deployment Image](#Edit-Deployment-Image)
+4. [SSH into pod](#SSH-into-pod)
 5. [Troubleshooting ](#Troubleshooting)   
 
+
+### Full Command Sequence
+    
+
+```sh
+minikube start --vm-driver=hyperkit
+
+kubectl create deployment nginx-depl --image=nginx 
+
+# kubectl get all  
+
+kubectl edit deployment nginx-depl  
+  
+# kubectl logs [podname]
+  
+# kubectl describe pod [podname]  
+  
+kubectl exec -it[pod name] -- bin/bash 
+  
+
+```
+  
   
 ### Start up minikube
   
@@ -81,8 +104,8 @@ kubectl get all // better
   
 ```sh
 
-  # Create a new deployment named nginx-depl that uses nginx image from docker
- kubectl create deployment nginx-depl --image=nginx 
+# Create a new deployment named nginx-depl that uses nginx image from docker
+kubectl create deployment nginx-depl --image=nginx 
 ```    
 
 - Creates a pod
