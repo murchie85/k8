@@ -7,7 +7,8 @@
 # Navigation  
   
 1. [Start up minikube](#Start-up-minikube)   
-2. [Create a deployment](#Creating-Deployment)    
+2. [Create a deployment](#Creating-Deployment) 
+3. [## Troubleshooting ](#Troubleshooting)   
 
   
 ### Start up minikube
@@ -77,17 +78,55 @@ kubectl get all // better
 
   # Create a new deployment named nginx-depl that uses nginx image from docker
  kubectl create deployment nginx-depl --image=nginx 
-```
+```    
+
 - Creates a pod
 - Creates a replicaset
 - creates a deployment
+    
+
+**Check**  
   
+
 ```
 kubectl get pod
 kubectl get depoloyment
 kubectl get replicaset
 ```  
     
+    
+
+## Edit Deployment Image  
+
+  
+(You only ever need to edit stuff via deployment)  
+  
+```
+kubectl edit deployment nginx-depl
+```
+  
+- most stuff is auto generated default   
+- because how we set it.  
+    
+- we make a change to ver 
+```
+    spec:
+      containers:
+      - image: nginx:1.16
+```  
+- do a get all to see that it gets deleted and a new pod gets created.  
+  
+## Troubleshooting
+
+```
+kubectl logs [podname]
+
+if we need more info 
+  
+kubectl describe pod [podname]
+
+```
+
 
 
 ## Create example usage    
@@ -212,7 +251,7 @@ Other Commands:
 
 ```  
   
-## Theory  
+## Theory    
   
 
 ==============================
