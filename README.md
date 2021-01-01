@@ -2,16 +2,19 @@
     
 
 ![k8 image](https://39lxv6m650h1g391z2daj1l1-wpengine.netdna-ssl.com/assets/blog-kubernetes-og.jpg)  
-  
+![](https://www.praqma.com/images/stories/kubernetes-sami.jpg)  
+
 
 # Navigation
   
 0. [Full Command Sequence ](#Full-Command-Sequence)
-1. [Start up minikube](#Start-up-minikube)   
-2. [Create a deployment](#Creating-Deployment) 
-3. [Edit Deployment Image](#Edit-Deployment-Image)
-4. [SSH into pod](#SSH-into-pod)
-5. [Troubleshooting ](#Troubleshooting)   
+1. [Useful Notes](#Useful-Notes)
+2. [Start up minikube](#Start-up-minikube)   
+3. [Create a deployment](#Creating-Deployment) 
+4. [Edit Deployment Image](#Edit-Deployment-Image)
+5. [SSH into pod](#SSH-into-pod)
+6. [Debugging](#Troubleshooting)   
+7. [Create and Manage via Configuration File](Create-and-Manage-via-Configuration-File) 
 
 
 ### Full Command Sequence
@@ -35,9 +38,12 @@ kubectl exec -it[pod name] -- bin/bash
 kubectl delete deployment nginx-depl  
 
 ```
+    
+## Useful Notes   
   
+- Don't need to modity replicasets 
   
-### Start up minikube
+## Start up minikube
   
  
 ```
@@ -89,7 +95,20 @@ Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.0", GitCom
 ```
 kubectl get services  
 kubectl get all // better
-```  
+```    
+  
+
+
+
+
+
+
+
+
+
+
+  
+
   
 # Creating Deployment
     
@@ -131,7 +150,9 @@ kubectl get replicaset
 (You only ever need to edit stuff via deployment)  
   
 ```
-kubectl edit deployment nginx-depl
+
+kubectl edit deployment nginx-depl 
+
 ```
   
 - most stuff is auto generated default   
@@ -145,34 +166,8 @@ kubectl edit deployment nginx-depl
 ```  
 - do a get all to see that it gets deleted and a new pod gets created.  
   
-## Troubleshooting
-
-[Navigation](#Navigation)  
-  
   
 
-```
-kubectl logs [podname]
-
-if we need more info 
-  
-kubectl describe pod [podname]
-
-```  
-- output  
-  
-```
-  Type    Reason     Age    From               Message
-  ----    ------     ----   ----               -------
-  Normal  Scheduled  4m25s  default-scheduler  Successfully assigned default/nginx-depl-7fc44fc5d4-ncwkx to minikube
-  Normal  Pulling    4m25s  kubelet, minikube  Pulling image "nginx:1.16"
-  Normal  Pulled     4m23s  kubelet, minikube  Successfully pulled image "nginx:1.16" in 1.435142631s
-  Normal  Created    4m23s  kubelet, minikube  Created container nginx
-  Normal  Started    4m23s  kubelet, minikube  Started container nginx
-  ```
-
-
-  
 
 ## SSH into pod
 
@@ -180,6 +175,34 @@ kubectl describe pod [podname]
 kubectl exec -it[pod name] -- bin/bash
 ```
   
+## Delete Deployment  
+  
+```
+kubectl delete deployment [depl-name]
+```  
+  
+- This will delete replicaset, pod, service   
+- Test with `kubectl get all`  
+  
+  
+
+# Create and Manage via Configuration File 
+  
+consider the folowing:  
+  
+`kubectl create deployment name image option1 option2` 
+  
+- Using config file is much easier.  
+  
+### Method  
+  
+```
+kubectl apply -f [file_name] 
+```
+
+
+
+
 
 
 ## Create example usage    
@@ -195,6 +218,39 @@ In the options we can specify more than one replica set.
   
 
   
+## Debugging
+
+[Navigation](#Navigation)  
+      
+
+- SSH into pod
+- Get Logs 
+- Describe pods 
+
+  
+```
+kubectl exec -it[pod name] -- bin/bash 
+```  
+
+    
+```
+kubectl logs [podname]
+```    
+  
+```  
+kubectl describe pod [podname]  
+```
+- output  
+  
+```
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m25s  default-scheduler  Successfully assigned default/nginx-depl-7fc44fc5d4-ncwkx to minikube
+  Normal  Pulling    4m25s  kubelet, minikube  Pulling image "nginx:1.16"
+  Normal  Pulled     4m23s  kubelet, minikube  Successfully pulled image "nginx:1.16" in 1.435142631s
+  Normal  Created    4m23s  kubelet, minikube  Created container nginx
+  Normal  Started    4m23s  kubelet, minikube  Started container nginx
+  ```
 
 
 
