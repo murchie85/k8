@@ -199,8 +199,41 @@ consider the folowing:
 ```
 kubectl apply -f [file_name] 
 ```
+   
+### Creating your config file  
+  
 
+1. Create a yaml file  
+```
+touch nginx-deployment.yaml 
+```
+2. Edit it like the following 
 
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.16
+        ports:
+        - containerPort: 8080
+```
+
+  
 
 
 
