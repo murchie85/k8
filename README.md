@@ -256,9 +256,53 @@ kubectl apply -f nginx-deployment.yaml
    
 ```  
   
+5. Make service file   
 
-
+```
+touch nginx-service.yaml
+```
   
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+```
+  
+- Targetport **should match** the containerport
+  
+
+```
+kubectl apply -f nginx-service.yaml
+   
+```    
+    
+**Validate** it is listening on the right ports etc  
+  
+```
+kubectl describe service nginx-service.yaml  
+```  
+     
+Check the **pods match up**  
+    
+```
+kubectl get pod -o wide
+```  
+  
+Check current **status**  
+  
+```
+kubectl get deployment nginx-deployment -o yaml 
+```
+
 
 
 
@@ -283,7 +327,10 @@ In the options we can specify more than one replica set.
 
 - SSH into pod
 - Get Logs 
-- Describe pods 
+- Describe pods
+- Describe service
+- More pod info  
+- Get active deployment info 
 
   
 ```
@@ -311,8 +358,23 @@ kubectl describe pod [podname]
   ```
 
 
-
-
+## Validate it is listening on the right ports etc  
+  
+```
+kubectl describe service nginx-service.yaml  
+```  
+   
+### Check the pods match up  
+  
+```
+kubectl get pod -o wide
+```  
+  
+## Get active deployment info  
+  
+```
+kubectl get deployment nginx-deployment -o yaml
+```
 
 
 
