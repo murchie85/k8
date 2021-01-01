@@ -13,9 +13,11 @@
 3. [Create a deployment](#Creating-Deployment) 
 4. [Edit Deployment Image](#Edit-Deployment-Image)
 5. [SSH into pod](#SSH-into-pod)
-6. [Debugging](#Troubleshooting)   
+6. [Debug Commands](#Debug-Commands)   
 7. [Create and Manage via Configuration File](Create-and-Manage-via-Configuration-File) 
 
+99. [Theory](#Theory)  
+  
 
 ### Full Command Sequence
     
@@ -217,7 +219,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -232,6 +234,29 @@ spec:
         ports:
         - containerPort: 8080
 ```
+  
+3. Apply  
+  
+``` 
+kubectl apply -f nginx-deployment.yaml  
+```  
+ 
+4. Make changes  
+  
+- edit yaml file 
+ 
+```
+replicas: 2
+```  
+ 
+- apply again  
+  
+```
+kubectl apply -f nginx-deployment.yaml  
+   
+```  
+  
+
 
   
 
@@ -251,7 +276,7 @@ In the options we can specify more than one replica set.
   
 
   
-## Debugging
+## Debug Commands
 
 [Navigation](#Navigation)  
       
@@ -393,18 +418,73 @@ Other Commands:
 
 ```  
   
-## Theory    
+# Theory  
   
 
-==============================
-|  **DEPLOYMENT** manages a 
-|    
-|  
-|  **REPLICASET** manages a 
-|  
-|    
-|  **POD** manages a  
-|    
-|  **container**  
-|  
-===========================
+
+  **DEPLOYMENT** manages a 
+    
+  
+  **REPLICASET** manages a 
+  
+    
+  **POD** manages a  
+    
+  **container**  
+ 
+
+## Config file  
+ 
+- Has Three parts  
+  - Metadata
+  - spec 
+  - status  (auto generated/updated)   
+  
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata: ---------------------> for service
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:  -------------------------> for deployment
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:--------------------> for pods
+      labels:
+        app: nginx
+    spec:------------------------> for pods
+      containers:
+      - name: nginx
+        image: nginx:1.16
+        ports:
+        - containerPort: 8080
+```  
+
+**LABELS** and **SELECTORS**  
+ 
+- Metadata have labels  
+- Spec has selectors
+  
+  
+- Metadata at the top applies to the **service**  
+- Metadata in the template applies to the **pod**  
+
+
+**Status** is polled from ETCd,  
+  
+**Format** is YAML, strict about indendations.  
+  
+Use Yaml validator online.  
+  
+**Store** yaml files with your code.  
+  
+**Template** part has its own metadata and spec part, it applies to pods.
+
+**Template** is the blueprint for your pod.  
+  
+
