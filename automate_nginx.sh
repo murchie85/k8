@@ -1,1 +1,0 @@
-kubectl create deployment nginx-depl --image=nginx 

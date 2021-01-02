@@ -236,6 +236,20 @@ data:
 ```
 echo -n 'username' | base64    
 ```
+
+Reference the secret with the following in the `env` section using `valueFrom` and `secretKeyRef`:  
+  
+```
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+```  
+  
+
+
+
 Once populated appropriately apply
   
 ``` 
