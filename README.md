@@ -2,7 +2,7 @@
     
 
 ![k8 image](https://39lxv6m650h1g391z2daj1l1-wpengine.netdna-ssl.com/assets/blog-kubernetes-og.jpg)  
-![](https://www.praqma.com/images/stories/kubernetes-sami.jpg)  
+    
 
 
 # Navigation
@@ -10,11 +10,11 @@
 1. [Full Command Sequence ](#Full-Command-Sequence)
 2. [Start up minikube](#Start-up-minikube)   
 3. [Creating Deployment From Image](#Creating-Deployment-From-Image) 
-  - [Edit Deployment Image](#Edit-Deployment-Image)
+    - [Edit Deployment Image](#Edit-Deployment-Image)
 4. [Create Deployment from Configuration File](#Create-Deployment-from-Configuration-File) 
-  - [Secrets](#Secrets)
-  - [Creating your config file](#Creating-your-config-file)
-  - [SSH into pod](#SSH-into-pod)  
+    - [Secrets](#Secrets)
+    - [Creating your config file](#Creating-your-config-file)
+    - [SSH into pod](#SSH-into-pod)  
 5. [Debug Commands](#Debug-Commands) 
 6. [SoloProject]
 
@@ -22,6 +22,9 @@
   
   
 
+![](https://www.praqma.com/images/stories/kubernetes-sami.jpg)  
+  
+  
 ## Useful Notes   
   
 - Don't need to modity replicasets   
@@ -396,7 +399,7 @@ kubectl delete deployment [depl-name]
 
 
 
-                         
+
 
 # General
 
