@@ -11,9 +11,10 @@
 2. [Start up minikube](#Start-up-minikube)   
 3. [Creating Deployment From Image](#Creating-Deployment-From-Image) 
   - [Edit Deployment Image](#Edit-Deployment-Image)
-  - [SSH into pod](#SSH-into-pod)  
-4. [Create and Manage via Configuration File](Create-and-Manage-via-Configuration-File) 
+4. [Create Deployment from Configuration File](#Create-Deployment-from-Configuration-File) 
   - [Secrets](#Secrets)
+  - [Creating your config file](#Creating-your-config-file)
+  - [SSH into pod](#SSH-into-pod)  
 5. [Debug Commands](#Debug-Commands) 
 6. [SoloProject]
 
@@ -173,26 +174,22 @@ kubectl edit deployment nginx-depl
   
   
 
-
-## SSH into pod
-
-```
-kubectl exec -it[pod name] -- bin/bash
-```
-  
-## Delete Deployment  
-  
-```
-kubectl delete deployment [depl-name]
-```  
-  
-- This will delete replicaset, pod, service   
-- Test with `kubectl get all`  
-  
     
+  
 
 
-# Create and Manage via Configuration File
+
+
+
+
+
+
+
+
+
+
+
+# Create Deployment from Configuration File
    
 
 [Navigation](#Navigation)  
@@ -250,14 +247,22 @@ Reference the secret with the following in the `env` section using `valueFrom` a
 
 
 
-Once populated appropriately apply
+Once populated appropriately apply: 
   
 ``` 
 kubectl apply -f secrets.yaml  
-``` 
+```   
+  
+Then to get the secret run:  
+  
+```
+kubectl get secret  
+```  
+  
+
 
    
-### Creating your config file  
+### Creating your config file
   
 
 1. Create a yaml file  
@@ -358,7 +363,42 @@ Check current **status**
 kubectl get deployment nginx-deployment -o yaml 
 ```
 
+## SSH into pod
 
+```
+kubectl exec -it[pod name] -- bin/bash
+```
+  
+## Delete Deployment  
+  
+```
+kubectl delete deployment [depl-name]
+```  
+  
+- This will delete replicaset, pod, service   
+- Test with `kubectl get all`  
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         
+
+# General
 
 
 
