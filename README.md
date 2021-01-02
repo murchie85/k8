@@ -7,15 +7,15 @@
 
 # Navigation
   
-0. [Full Command Sequence ](#Full-Command-Sequence)
-1. [Useful Notes](#Useful-Notes)
+1. [Full Command Sequence ](#Full-Command-Sequence)
 2. [Start up minikube](#Start-up-minikube)   
-3. [Create a deployment](#Creating-Deployment) 
-4. [Edit Deployment Image](#Edit-Deployment-Image)
-5. [SSH into pod](#SSH-into-pod)
-6. [Debug Commands](#Debug-Commands)   
-7. [Create and Manage via Configuration File](Create-and-Manage-via-Configuration-File) 
-8. [SoloProject]
+3. [Creating Deployment From Image](#Creating-Deployment-From-Image) 
+  - [Edit Deployment Image](#Edit-Deployment-Image)
+  - [SSH into pod](#SSH-into-pod)  
+4. [Create and Manage via Configuration File](Create-and-Manage-via-Configuration-File) 
+  - [Secrets](#Secrets)
+5. [Debug Commands](#Debug-Commands) 
+6. [SoloProject]
 
 99. [Theory](#Theory)  
   
@@ -115,7 +115,7 @@ kubectl get all // better
   
 
   
-# Creating Deployment
+# Creating Deployment From Image
     
 
 [Navigation](#Navigation)  
@@ -124,9 +124,6 @@ kubectl get all // better
 - We don't create pods
 - We create the layer above i.e. deployments 
   
-## Help for create command.  
-    
-## Creating NGINX deployment
   
 ```sh
 
@@ -192,7 +189,8 @@ kubectl delete deployment [depl-name]
 - This will delete replicaset, pod, service   
 - Test with `kubectl get all`  
   
-  
+    
+
 
 # Create and Manage via Configuration File
    
@@ -210,7 +208,40 @@ consider the folowing:
   
 ```
 kubectl apply -f [file_name] 
+```    
+  
+
+## Secrets
+    
+** MUST BE CREATED BEFORE DEPLOYMENT **  
+  
+  
+- In spec you may have env name/value pairs
+- Create a `secrets.yaml` file  
+
+```YAML
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret
+type: Opaque
+data:
+    mongo-root-username:
+    mongo-root-password:
+
 ```
+  
+- to generate base 64 encoded.  
+
+```
+echo -n 'username' | base64    
+```
+Once populated appropriately apply
+  
+``` 
+kubectl apply -f secrets.yaml  
+``` 
+
    
 ### Creating your config file  
   
@@ -388,38 +419,6 @@ kubectl get deployment nginx-deployment -o yaml
 
 
 
-
-
-
-
-
-
-
-## Secrets  
-    
-** MUST BE CREATED BEFORE DEPLOYMENT **  
-  
-  
-- In spec you may have env name/value pairs
-- Create a `secrets.yaml` file  
-
-```YAML
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mongodb-secret
-type: Opaque
-data:
-    mongo-root-username:
-    mongo-root-password:
-
-```
-  
-- to generate base 64 encoded.  
-
-```
-echo -n 'username' | base64    
-```
 
 
 
