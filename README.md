@@ -15,9 +15,18 @@
 5. [SSH into pod](#SSH-into-pod)
 6. [Debug Commands](#Debug-Commands)   
 7. [Create and Manage via Configuration File](Create-and-Manage-via-Configuration-File) 
+8. [SoloProject]
 
 99. [Theory](#Theory)  
   
+  
+
+## Useful Notes   
+  
+- Don't need to modity replicasets   
+- Secrets need to be applied before cluster spins up. 
+  
+
 
 ### Full Command Sequence
     
@@ -26,14 +35,10 @@
 minikube start --vm-driver=hyperkit
 
 kubectl create deployment nginx-depl --image=nginx 
-
-# kubectl get all  
+OR
+kubectl apply -f [config.yaml]
 
 kubectl edit deployment nginx-depl  
-  
-# kubectl logs [podname]
-  
-# kubectl describe pod [podname]  
   
 kubectl exec -it[pod name] -- bin/bash 
   
@@ -41,9 +46,7 @@ kubectl delete deployment nginx-depl
 
 ```
     
-## Useful Notes   
   
-- Don't need to modity replicasets 
   
 ## Start up minikube
   
@@ -116,6 +119,7 @@ kubectl get all // better
     
 
 [Navigation](#Navigation)  
+  
 
 - We don't create pods
 - We create the layer above i.e. deployments 
@@ -148,6 +152,8 @@ kubectl get replicaset
 
 ## Edit Deployment Image
 
+[Navigation](#Navigation)  
+ 
   
 (You only ever need to edit stuff via deployment)  
   
@@ -188,8 +194,12 @@ kubectl delete deployment [depl-name]
   
   
 
-# Create and Manage via Configuration File 
-  
+# Create and Manage via Configuration File
+   
+
+[Navigation](#Navigation)  
+   
+
 consider the folowing:  
   
 `kubectl create deployment name image option1 option2` 
@@ -277,7 +287,7 @@ spec:
 
 ```
   
-- Targetport **should match** the containerport
+Targetport **should match** the containerport
   
 
 ```
@@ -385,9 +395,31 @@ kubectl get deployment nginx-deployment -o yaml
 
 
 
+## Secrets  
+    
+** MUST BE CREATED BEFORE DEPLOYMENT **  
+  
+  
+- In spec you may have env name/value pairs
+- Create a `secrets.yaml` file  
 
+```YAML
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-secret
+type: Opaque
+data:
+    mongo-root-username:
+    mongo-root-password:
 
+```
+  
+- to generate base 64 encoded.  
 
+```
+echo -n 'username' | base64    
+```
 
 
 
