@@ -167,8 +167,9 @@ kubectl edit deployment nginx-depl
 - most stuff is auto generated default   
 - because how we set it.  
     
-- we make a change to ver 
-```
+- we make a change to ver   
+
+```yaml
     spec:
       containers:
       - image: nginx:1.16
@@ -224,7 +225,7 @@ kubectl apply -f [file_name]
 - In spec you may have env name/value pairs
 - Create a `secrets.yaml` file  
 
-```YAML
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -244,7 +245,7 @@ echo -n 'username' | base64
 
 Reference the secret with the following in the `env` section using `valueFrom` and `secretKeyRef`:  
   
-```
+```yaml
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
             secretKeyRef:
@@ -283,7 +284,7 @@ touch nginx-deployment.yaml
 ```
 2. Edit it like the following 
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -334,7 +335,7 @@ kubectl apply -f nginx-deployment.yaml
 touch nginx-service.yaml
 ```
   
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -507,7 +508,7 @@ kubectl get deployment nginx-deployment -o yaml
 
 ## Useful KUBECTL Commands    
 
-```
+```sh
 kubectl get all    // get everything
   
 
@@ -588,7 +589,7 @@ Other Commands:
 [Navigation](#Navigation)  
       
   
-  
+
 
   **DEPLOYMENT** manages a 
     
@@ -613,7 +614,7 @@ Other Commands:
 
 - note the `---` is just seperation .  
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata: ---------------------> for 
@@ -809,7 +810,7 @@ spec:
   
 ## mongo-express.yaml  
   
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
