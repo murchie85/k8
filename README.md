@@ -17,14 +17,14 @@
     - [SSH into pod](#SSH-into-pod)  
 5. [Debug Commands](#Debug-Commands) 
 6. [SoloProject]
-
+7. [Nana Project Review](#Nana-Project-Review)   
 99. [Theory](#Theory)  
   
   
 
 ![](https://www.praqma.com/images/stories/kubernetes-sami.jpg)  
   
-  
+
 ## Useful Notes   
   
 - Don't need to modity replicasets   
@@ -335,8 +335,8 @@ spec:
     app: nginx
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8080
+      port: 80 ------------------> exposed port
+      targetPort: 8080 ----------> container port
 
 ```
   
@@ -590,29 +590,64 @@ Other Commands:
   - spec 
   - status  (auto generated/updated)   
   
+## Sample Config File  
+  
+
+- note the `---` is just seperation .  
 
 ```
 apiVersion: apps/v1
 kind: Deployment
-metadata: ---------------------> for service
-  name: nginx-deployment
+metadata: ---------------------> for 
+  name: mongo-express
   labels:
-    app: nginx
-spec:  -------------------------> for deployment
+    app: mongo-express
+spec:  -------------------------> for 
   replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: mongo-express
   template:
-    metadata:--------------------> for pods
+    metadata: --------------------> for pods
       labels:
-        app: nginx
-    spec:------------------------> for pods
+        app: mongo-express
+    spec: ------------------------> for pods
       containers:
-      - name: nginx
-        image: nginx:1.16
+      - name: mongo-express
+        image: mongo-express
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          valueFrom: ------------------------> from secrets file
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+        - name: ME_CONFIG_MONGODB_SERVER
+          valueFrom: ------------------------> from config map
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_url
+---
+apiVersion: v1 ------------------------> service in same file 
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongo-express  ------------------------> Connects to pods of same name
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30000
+
 ```  
 
 **LABELS** and **SELECTORS**  
@@ -637,4 +672,170 @@ Use Yaml validator online.
 
 **Template** is the blueprint for your pod.  
   
+  
 
+# Nana Project Review
+  
+
+This is a recreation of the project created by Nana [here](https://www.youtube.com/watch?v=X48VuDVv0do&t=5057s&ab_channel=TechWorldwithNana)  
+  
+It is two main config files, one for mongoDB backend with no external access and another for mongo-express which communicates with backend. There is a secrets file and also a configmap which provides a `database_url`.  
+  
+## Summary  
+  
+### mongodb-deployment  
+     
+From Documentation...
+Container Port: 27017    
+  
+### mongo-express  
+  
+From Documentation...
+containerPort: 8081  
+nodePort: 30000
+
+# Steps  
+  
+**KEY** Always view the docker image documentation on how to set up env variables.   
+
+1. Set up **secrets file**, use echo to base64 to populate. 
+  - Modify mongo-deployment file with username and password key  
+  - `kubectl apply -f secrets.yaml`  
+  - `kubectl get secret`  
+2. Setup **mongodb.yaml** deployment   
+  - From documentation it needs to know: 
+  - Which creds to authenticate `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` 
+  - `kubectl apply -f mongodb.yaml`    
+
+  **Validation**
+  - Validate: `kubectl get all | grep mongodb`  
+  - Validate Service: `kubectl describe service mongodb-service`
+  - Validate IP matches Pod IP `kubectl get pod -o wide`  
+3. Setup **Mongoexpress** service  
+  - From documentation it needs to know: 
+  - Which Database to connect to: `ME_CONFIG_MONGODB_SERVER`
+  - Which creds to authenticate `ME_CONFIG_MONGODB_ADMINUSERNAME` and `ME_CONFIG_MONGODB_ADMINPASSWORD`
+
+
+  
+
+
+## Config Files
+  
+### secrets.yaml
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: mongodb-secret
+type: Opaque
+data:
+    mongo-root-username: dXNlcm5hbWU=
+    mongo-root-password: cGFzc3dvcmQ=
+
+``` 
+ 
+### mongodb.yaml  
+
+```yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    app: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+```
+  
+## mongo-express.yaml  
+  
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+  labels:
+    app: mongo-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+      - name: mongo-express
+        image: mongo-express
+        ports:
+        - containerPort: 8081
+        env:
+        - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-username
+        - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+          valueFrom: 
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password
+        - name: ME_CONFIG_MONGODB_SERVER
+          valueFrom: 
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongo-express
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30000
+```
