@@ -21,6 +21,9 @@
 7. [SoloProject](#d)
 8. [Nana Project Review](#Nana-Project-Review)   
 99. [Theory](#Theory)  
+    - [Sample Config File](#Sample-Config-File)
+    - [NameSpace](#NameSpace)  
+
   
   
 
@@ -672,7 +675,7 @@ Other Commands:
   - spec 
   - status  (auto generated/updated)   
   
-## Sample Config File  
+## Sample Config File
   
 
 - note the `---` is just seperation .  
@@ -754,7 +757,79 @@ Use Yaml validator online.
 
 **Template** is the blueprint for your pod.  
   
+    
+
+## NameSpace  
+    
+![](images/default.png)  
   
+Name spaces are logical partitions within a cluster, if you don't create any all resources go into `default` name spac.e 
+
+
+Four kinds of namespaces  
+
+- kube-system `system info` 
+- kube-public `kubectl clusterinfo` 
+- kube-node-lease `heartbeat` 
+- default  `this is where our stuff goes if we haven't created a namespace`    
+    
+## Create  
+  
+
+`kubectl create namespace [my namespace]`    
+    
+
+    
+or apply namespace config file  
+  
+```yaml
+apiVersion: v1
+kind: configMap
+metadata:
+  name: my-app-configmap
+  namespace: my-assigned-namespace
+data:
+  db_url: mysql_service.database  
+
+```  
+  
+```
+kubectl apply -f myconfigmap.yaml
+```
+  
+### Use Cases  
+  
+
+![](images/namespace.png)  
+
+- Group by function (Db, Monitoring etc)
+- IAM restrict teams to a namespacs
+  - limit resources quotas per namespace
+- Group by teams (teamA,TeamB) 
+    - prevents conflict and overwriting
+- BlueGreen Deployment that needs to share resources  
+
+## Notes  
+  
+- Each namespace must define its own config map, secrets 
+- Service can be accessed outside of a namespace using the following convention   
+  
+```yaml
+data:
+  db_url: mysql_service.other_namespace  
+```  
+   
+The end affix `other_namespace` is the name of the namespace you are trying to get into .  
+  
+- Some components are global you can see them by running `kubectl api-resources --namespaced=false` 
+  - Vol
+  - Node 
+  
+List all namespace resources  
+  
+`kubectl api-resources --namespaced=true`    
+  
+
 
 # Nana Project Review
   
@@ -765,7 +840,10 @@ Use Yaml validator online.
   
 
 This is a recreation of the project created by Nana [here](https://www.youtube.com/watch?v=X48VuDVv0do&t=5057s&ab_channel=TechWorldwithNana)  
-  
+    
+`MongoDB` backend database 
+`MongoExpress` Front end interactive tool  
+
 It is two main config files, one for mongoDB backend with no external access and another for mongo-express which communicates with backend. There is a secrets file and also a configmap which provides a `database_url`.  
   
 ## Summary  

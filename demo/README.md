@@ -1,0 +1,2 @@
+# Solo Project Plan  
+  
