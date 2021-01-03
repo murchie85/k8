@@ -462,10 +462,12 @@ mongodb-service         ClusterIP      10.97.33.92   <none>        27017/TCP    
 
 
 
-
-
-
-
+## Accesing your service  
+  
+```
+minikube service your-service-name
+```  
+    
 
 
 
@@ -813,8 +815,19 @@ nodePort: 30000
   
     - `kubectl apply -f mongo-express.yaml` 
     - Note your service isn't default `clusterIP` its `loadBalancer`  
-    - `kubectl logs mongo-express-pod`  check for listening and `db connected` 
+    - `kubectl logs mongo-express-pod`  check for listening and `db connected`  
+    - `minikube service mongo-expresss-service` to go ahead and connect.  
 
+
+**Now it should Run**  
+    
+
+## FLOW  
+   
+- When you test by adding a database:  
+
+`browser` --> `mongo-express external service` --> `mongoDB internal service` --> `mongoDB pod`
+ 
   
 
 
