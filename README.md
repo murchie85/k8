@@ -699,22 +699,22 @@ nodePort: 30000
 **KEY** Always view the docker image documentation on how to set up env variables.   
 
 1. Set up **secrets file**, use echo to base64 to populate. 
-  - Modify mongo-deployment file with username and password key  
-  - `kubectl apply -f secrets.yaml`  
-  - `kubectl get secret`  
+    - Modify mongo-deployment file with username and password key  
+    - `kubectl apply -f secrets.yaml`  
+    - `kubectl get secret`  
 2. Setup **mongodb.yaml** deployment   
-  - From documentation it needs to know: 
-  - Which creds to authenticate `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` 
-  - `kubectl apply -f mongodb.yaml`    
+    - From documentation it needs to know: 
+    - Which creds to authenticate `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` 
+    - `kubectl apply -f mongodb.yaml`    
 
-  **Validation**
-  - Validate: `kubectl get all | grep mongodb`  
-  - Validate Service: `kubectl describe service mongodb-service`
-  - Validate IP matches Pod IP `kubectl get pod -o wide`  
+**Validation**
+    - Validate: `kubectl get all | grep mongodb`  
+    - Validate Service: `kubectl describe service mongodb-service`
+    - Validate IP matches Pod IP `kubectl get pod -o wide`  
 3. Setup **Mongoexpress** service  
-  - From documentation it needs to know: 
-  - Which Database to connect to: `ME_CONFIG_MONGODB_SERVER`
-  - Which creds to authenticate `ME_CONFIG_MONGODB_ADMINUSERNAME` and `ME_CONFIG_MONGODB_ADMINPASSWORD`
+    - From documentation it needs to know: 
+    - Which Database to connect to: `ME_CONFIG_MONGODB_SERVER`
+    - Which creds to authenticate `ME_CONFIG_MONGODB_ADMINUSERNAME` and `ME_CONFIG_MONGODB_ADMINPASSWORD`
 
 
   
