@@ -489,9 +489,12 @@ minikube service your-service-name
 1. Create your ingress yaml
 2. tie it up to internal service
 3. create an `ingress implementation` which is an `ingress controller`  
+4. Need to set up entry point, which varies based on cloud, bare metal etc. 
+5. Create an ingress rule.  
   
-  
-![](images/ingress.png)  
+
+![](images/ingress.png)    
+
 *compare the flow with external service above* 
   
 
@@ -500,7 +503,7 @@ The URL will look like:
 
 `http://123.45.678:35222`  
   
-Using Ingress will look like `myapp-ingress --> internal service --> pod` 
+Using Ingress will look like `browser --> ingress controller --> myapp-ingress --> internal service --> pod` 
 The URL will look like:  
 
 `https://my-lovely-app.com`  
@@ -551,8 +554,31 @@ spec:
   
 - Must be `valid ip address`  
 - You must map the domain name to `Node's entry ip address` which is the `entry point`  i.e. the hosting node.  
-  
+    
+## Ingress controller  
+
 Creating the yaml isn't enough, you need to create `ingress implementation` which is an `ingress controller`
+  
+- Evaluates all the rules
+- Manages redirection
+- Entrypont to cluster 
+- Many 3rd party impmentations i.e. k8s Nginx Ingress controller 
+    
+**Entry point must be setup** be it external hardware, software, cloud etc.   
+  
+External request load balancing happens prior to entry point.
+The ingress controller decides what to pass on to ingress service.  
+  
+### Ingress controller on minikube example  
+  
+`minikube addons enable ingress`
+
+Automatically starts the k8s Nginx ingress controller. 
+
+If we `kubectl get pod -n kube-system` we will see it added   
+  
+### Create ingress rule 
+
 
 
 
