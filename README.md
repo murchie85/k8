@@ -771,7 +771,19 @@ Four kinds of namespaces
 - kube-system `system info` 
 - kube-public `kubectl clusterinfo` 
 - kube-node-lease `heartbeat` 
-- default  `this is where our stuff goes if we haven't created a namespace`    
+- default  `this is where our stuff goes if we haven't created a namespace`     
+  
+### Use Cases  
+  
+
+![](images/namespace.png)  
+
+- Group by function (Db, Monitoring etc)
+- IAM restrict teams to a namespacs
+  - limit resources quotas per namespace
+- Group by teams (teamA,TeamB) 
+    - prevents conflict and overwriting
+- BlueGreen Deployment that needs to share resources   
     
 ## Create  
   
@@ -792,22 +804,37 @@ data:
   db_url: mysql_service.database  
 
 ```  
-  
+   
 ```
 kubectl apply -f myconfigmap.yaml
 ```
+    
+**Important**  
   
-### Use Cases  
+If you try to get your config map, it wont work `kubectl get configmap` because it defaults to default namespace.  
+  
+run:  
+  
+`kubectl get configmap -n [target-namespace]`
+  
+- This has to be applied for all commands and config files  .  
+    
+## Kubens  
+  
+Allows you to switch namespace:  
+  
+`brew install kubectx`  
+    
+### List namespace   
+  
+kubens  
+
+### Switch and create namespace  
+  
+`kubens my-namespace`  
   
 
-![](images/namespace.png)  
 
-- Group by function (Db, Monitoring etc)
-- IAM restrict teams to a namespacs
-  - limit resources quotas per namespace
-- Group by teams (teamA,TeamB) 
-    - prevents conflict and overwriting
-- BlueGreen Deployment that needs to share resources  
 
 ## Notes  
   
@@ -829,6 +856,8 @@ List all namespace resources
   
 `kubectl api-resources --namespaced=true`    
   
+  
+
 
 
 # Nana Project Review
