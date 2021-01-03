@@ -7,7 +7,7 @@
 
 # Navigation
   
-1. [Full Command Sequence ](#Full-Command-Sequence)
+1. [High Level Steps](#High-Level-Steps)
 2. [Start up minikube](#Start-up-minikube)   
 3. [Creating Deployment From Image](#Creating-Deployment-From-Image) 
     - [Edit Deployment Image](#Edit-Deployment-Image)
@@ -32,21 +32,30 @@
   
 
 
-### Full Command Sequence
-    
+### High Level Steps
+      
+1. Start Minikube 
+2. Deploy secrets with kubectl 
+3. Deploy config
+  
+- Decide what you want to build
+- Read docker requirements for the images you use
+- create config files
+- spin up   
+
 
 ```sh
-minikube start --vm-driver=hyperkit
+minikube start --vm-driver=hyperkit     # starts minikube
 
-kubectl create deployment nginx-depl --image=nginx 
+kubectl create deployment my-depl --image=nginx 
 OR
-kubectl apply -f [config.yaml]
+kubectl apply -f [config.yaml]          # applies config 
 
-kubectl edit deployment nginx-depl  
+kubectl edit deployment my-depl         # edits active deployment
   
-kubectl exec -it[pod name] -- bin/bash 
+kubectl exec -it[pod name] -- bin/bash  # jumps into pod
   
-kubectl delete deployment nginx-depl  
+kubectl delete deployment nginx-depl    # deletes 
 
 ```
     
@@ -66,30 +75,27 @@ minikube status
 ``` 
   
 
+**EVERYTHING IS KUBECTL** from here on. *minikube is just for starting the cluster*    
 
-**EVERYTHING IS KUBECTL** from here on.  
   
-*minikube is just for starting the cluster*  
-   
+  
+
 
 ### Check available nodes
 
-- Checks for nodes like other machines  
-  
 ```sh
-kubectl get nodes
+kubectl get nodes  # Checks for nodes like other machines 
 ```
       
 
 ### Get kubectl version  
-   
-- If we see client and server version it's all working ok.  
-
+     
 ```sh
-kubectl version
+kubectl version   # If we see client and server version it's all working ok
 ```
-- Note client ver 
-- note server ver 
+- Note the client ver 
+- note the server ver   
+
 ```sh
 Client Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.5", GitCommit:"20c265fef0741dd71a66480e35bd69f18351daea", GitTreeState:"clean", BuildDate:"2019-10-15T19:16:51Z", GoVersion:"go1.12.10", Compiler:"gc", Platform:"darwin/amd64"}
 
@@ -97,9 +103,7 @@ Server Version: version.Info{Major:"1", Minor:"20", GitVersion:"v1.20.0", GitCom
 ```
   
   
-## get services 
-  
-- command  
+## get services   
   
 ```
 kubectl get services  
@@ -140,7 +144,7 @@ kubectl create deployment nginx-depl --image=nginx
 - creates a deployment
     
 
-**Check**  
+**Ways to Check**  
   
 
 ```
@@ -707,18 +711,15 @@ It is two main config files, one for mongoDB backend with no external access and
   
 ## Summary  
 
-  
 ```md
-### mongodb-deployment  
-     
-From Documentation...
+MONGODB DEPLOYMENT
 Container Port: 27017    
   
-### mongo-express  
-  
-From Documentation...
+MONGO EXPRESS
 containerPort: 8081  
-nodePort: 30000
+nodePort: 30000 
+
+---All Values obtained from Dockerhub documentation
 ```  
   
 
