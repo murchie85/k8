@@ -16,7 +16,8 @@
     - [CONFIG MAP](#CONFIG-MAP)
     - [Creating your config file](#Creating-your-config-file)
     - [SSH into pod](#SSH-into-pod)  
-5. [External Service](#External-Service) 
+5. [External Service](#External-Service)   
+    - [Ingress](#Ingress)
 6. [Useful Stuff](#Useful-Stuff)
 7. [Debug Commands](#Debug-Commands) 
 8. [SoloProject](#d)
@@ -423,7 +424,12 @@ kubectl delete deployment [depl-name]
       
 
 [Navigation](#Navigation)  
-      
+          
+![](images/extservice.png)  
+  
+*note the flow*  
+
+Setting an external service makes the pod accessible via port/url, this is good for quick test. For secure production you need to follow the [ingress](#Ingress) approach. 
 
 - Defined as `type: loadBalancer` in service configuration  
 - Required a `nodePort` to be defined  
@@ -467,6 +473,22 @@ minikube service your-service-name
     
 
 
+## Ingress    
+  
+![](images/ingress.png)  
+*compare the flow with external service above* 
+  
+
+External Service looks like `user via browser --> service SVC balancer --> pod` .  
+The URL will look like:  
+
+`http://123.45.678:35222`  
+  
+Using Ingress will look like `myapp-ingress --> internal service --> pod` 
+The URL will look like:  
+
+`https://my-lovely-app.com`  
+  
 
 
 
@@ -707,8 +729,9 @@ Use Yaml validator online.
 ## NameSpace  
     
 ![](images/default.png)  
-  
-Name spaces are logical partitions within a cluster, if you don't create any all resources go into `default` name spac.e 
+*All objects reside in the default namespace unless otherwise set*  
+
+Name spaces are logical partitions within a cluster, if you don't create any all resources go into `default` name space. 
 
 
 Four kinds of namespaces  
@@ -722,6 +745,7 @@ Four kinds of namespaces
   
 
 ![](images/namespace.png)  
+* each name space in this case represents a function partition*      
 
 - Group by function (Db, Monitoring etc)
 - IAM restrict teams to a namespacs
