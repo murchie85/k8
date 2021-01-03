@@ -509,7 +509,7 @@ The URL will look like:
 `https://my-lovely-app.com`  
   
 
-## Example Ingress with http  
+## Example Ingress with http
 
 ```yaml  
 apiVersion: networking.k8.io/v1beta1  
@@ -579,6 +579,37 @@ If we `kubectl get pod -n kube-system` we will see it added
   
 ### Create ingress rule 
 
+Let's create a ingress rule for our cluster (demo shows as dashboard app: will need to create my own)   
+  
+Set up yaml as shown above [sample](Example-Ingress-with-http)  
+  
+once executed with `kubectl apply -f ingress.yaml`  we wait for address to be populated:  
+  
+`kubectl get ingress -n [namespace] --watch` (will watch it)  
+  
+`sudo /etc/hosts` update the ip address accordingly.  
+ 
+i.e  
+ 
+```sh
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1 localhost
+255.255.255.255 broadcasthost
+192.123.45.6    myapp.com   
+ 
+```    
+    
+Ingress pod will now forward this rule to the ingress service.  
+
+
+  
+
+  
 
 
 
