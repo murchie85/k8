@@ -16,10 +16,11 @@
     - [CONFIG MAP](#CONFIG-MAP)
     - [Creating your config file](#Creating-your-config-file)
     - [SSH into pod](#SSH-into-pod)  
-5. [External Service](#External-Service)
-6. [Debug Commands](#Debug-Commands) 
-7. [SoloProject](#d)
-8. [Nana Project Review](#Nana-Project-Review)   
+5. [External Service](#External-Service) 
+6. [Useful Stuff](#Useful-Stuff)
+7. [Debug Commands](#Debug-Commands) 
+8. [SoloProject](#d)
+9. [Nana Project Review](#Nana-Project-Review)   
 99. [Theory](#Theory)  
     - [Sample Config File](#Sample-Config-File)
     - [NameSpace](#NameSpace)  
@@ -28,13 +29,6 @@
   
 
 ![](https://www.praqma.com/images/stories/kubernetes-sami.jpg)  
-  
-
-## Useful Notes   
-  
-- Don't need to modity replicasets   
-- Secrets need to be applied before cluster spins up. 
-  
 
 
 ### High Level Steps
@@ -477,12 +471,35 @@ minikube service your-service-name
 
 
 
-# General
 
-
+# Useful Stuff
+    
 [Navigation](#Navigation)  
-      
+  
+- Don't need to modity replicasets   
+- Secrets need to be applied before cluster spins up. 
+    
+## Useful KUBECTL Commands    
 
+```sh
+kubectl get all    // get everything
+  
+
+kubectl delete deployment nginx-depl
+```
+## Useful MINIKUBE commands    
+
+  
+```
+minikube start
+minikube status
+minkube stop
+minikube delete
+minikube dashboard
+minkube puase
+minikube unpause
+```
+  
 
 ## Create example usage    
 ```sh 
@@ -494,7 +511,7 @@ Usage:
 ```  
       
 In the options we can specify more than one replica set.  
-  
+     
 
   
 ## Debug Commands
@@ -571,81 +588,9 @@ kubectl get deployment nginx-deployment -o yaml
 
 
 
-
-## Useful KUBECTL Commands    
-
-```sh
-kubectl get all    // get everything
-  
-
-kubectl delete deployment nginx-depl
-```
-
-## Useful MINIKUBE commands    
-  
-
-  
-```
-minikube start
-minikube status
-minkube stop
-minikube delete
-minikube dashboard
-minkube puase
-minikube unpause
-```
+ 
 
 
-
-
-
-- minikube output  
-
-```shell 
-minikube provisions and manages local Kubernetes clusters optimized for development workflows.
-
-Basic Commands:
-  start          Starts a local Kubernetes cluster
-  status         Gets the status of a local Kubernetes cluster
-  stop           Stops a running local Kubernetes cluster
-  delete         Deletes a local Kubernetes cluster
-  dashboard      Access the Kubernetes dashboard running within the minikube cluster
-  pause          pause Kubernetes
-  unpause        unpause Kubernetes
-
-Images Commands:
-  docker-env     Configure environment to use minikube's Docker daemon
-  podman-env     Configure environment to use minikube's Podman service
-  cache          Add, delete, or push a local image into minikube
-
-Configuration and Management Commands:
-  addons         Enable or disable a minikube addon
-  config         Modify persistent configuration values
-  profile        Get or list the current profiles (clusters)
-  update-context Update kubeconfig in case of an IP or port change
-
-Networking and Connectivity Commands:
-  service        Returns a URL to connect to a service
-  tunnel         Connect to LoadBalancer services
-
-Advanced Commands:
-  mount          Mounts the specified directory into minikube
-  ssh            Log into the minikube environment (for debugging)
-  kubectl        Run a kubectl binary matching the cluster version
-  node           Add, remove, or list additional nodes
-
-Troubleshooting Commands:
-  ssh-key        Retrieve the ssh identity key path of the specified node
-  ssh-host       Retrieve the ssh host key of the specified node
-  ip             Retrieves the IP address of the specified node
-  logs           Returns logs to debug a local Kubernetes cluster
-  update-check   Print current and latest version number
-  version        Print the version of minikube
-
-Other Commands:
-  completion     Generate command completion for a shell
-
-```  
   
 # Theory  
   
