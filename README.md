@@ -16,7 +16,7 @@
     - [Creating your config file](#Creating-your-config-file)
     - [SSH into pod](#SSH-into-pod)  
 5. [Debug Commands](#Debug-Commands) 
-6. [SoloProject]
+6. [SoloProject](#d)
 7. [Nana Project Review](#Nana-Project-Review)   
 99. [Theory](#Theory)  
   
