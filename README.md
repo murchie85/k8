@@ -434,7 +434,9 @@ Setting an external service makes the pod accessible via port/url, this is good 
 - Defined as `type: loadBalancer` in service configuration  
 - Required a `nodePort` to be defined  
 - This is the port you put in the browser to access it 
-- It has a range from (30000 to 32767)
+- It has a range from (30000 to 32767)  
+
+## Example External Service  
 
 ```yaml
 ---
@@ -465,7 +467,7 @@ mongodb-service         ClusterIP      10.97.33.92   <none>        27017/TCP    
 
 
 
-## Accesing your service  
+**Accesing your service** 
   
 ```
 minikube service your-service-name
@@ -490,6 +492,51 @@ The URL will look like:
 `https://my-lovely-app.com`  
   
 
+## Example Ingress with http  
+
+```yaml  
+apiVersion: networking.k8.io/v1beta1  
+kind: ingress 
+metadata:  
+  name: myapp-ingress  
+spec:  
+  rules:  
+  - host: myapp.com  
+    http:
+      paths:
+      - backend:
+          servicename: my-app-internal-service --------> maps to serice name
+          serviceport: 8080    ------------------------> maps to service port
+---  
+apiversion: v1
+kind: Service
+metadata: 
+  name: myapp-internal-service
+spec:
+  selector:
+    app: myapp
+  ports:
+    - protocol:TCP
+      port: 8080
+      targetPort: 80 
+
+```  
+*bottom is internal service for comparison*  
+
+
+- we define `kind: ingress`
+- we define **rules** for routing.  
+  - So the host `myapp.com` must be forwarded to an internal service `my-app-internal-service`   
+  - path: is what comes after the url part i.e. `http://myapp.com/blah`    
+  - http **does not** refer to the `http://myapp.com` , it's actually the second step reouting to internal service   
+  - note service doesn't have :
+    - node port
+    - no load balancer on internal service  
+
+**Important**  
+  
+- Must be `valid ip address`  
+- You must map the domain name to `Node's entry ip address` which is the `entry point`  
 
 
 
