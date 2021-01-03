@@ -706,7 +706,9 @@ This is a recreation of the project created by Nana [here](https://www.youtube.c
 It is two main config files, one for mongoDB backend with no external access and another for mongo-express which communicates with backend. There is a secrets file and also a configmap which provides a `database_url`.  
   
 ## Summary  
+
   
+```md
 ### mongodb-deployment  
      
 From Documentation...
@@ -717,6 +719,8 @@ Container Port: 27017
 From Documentation...
 containerPort: 8081  
 nodePort: 30000
+```  
+  
 
 # Steps  
   
