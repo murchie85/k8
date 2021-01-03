@@ -30,6 +30,15 @@
   
 
 ![](https://www.praqma.com/images/stories/kubernetes-sami.jpg)  
+  
+### Introduction  
+  
+Kubernetes is a container orchastration tool that is extemely popular in development, devops and infrastructure. It can be complicated to learn as it is built upon the concepts of containerisation (docker), Containers can be thought of as a strip down vm, lightweight and designed to run a single app only. Kubernetes is meant to manage multiple containers at scale. 
+  
+In short kubernetes lets you deploy a full end to end digital service, such as a database, front end and back end all in the one ecosystem. It allows for scaling accross multiple machines on prem or on the cloud and lets you manage routing such as ingress and namespaces.   
+  
+These notes are not designed as a tutorial, rather go to notes from resources including Nana's youtube, Kubernetes documentation and blogs.   
+  
 
 
 ### High Level Steps
@@ -476,6 +485,11 @@ minikube service your-service-name
 
 
 ## Ingress    
+    
+1. Create your ingress yaml
+2. tie it up to internal service
+3. create an `ingress implementation` which is an `ingress controller`  
+  
   
 ![](images/ingress.png)  
 *compare the flow with external service above* 
@@ -536,7 +550,9 @@ spec:
 **Important**  
   
 - Must be `valid ip address`  
-- You must map the domain name to `Node's entry ip address` which is the `entry point`  
+- You must map the domain name to `Node's entry ip address` which is the `entry point`  i.e. the hosting node.  
+  
+Creating the yaml isn't enough, you need to create `ingress implementation` which is an `ingress controller`
 
 
 
