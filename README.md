@@ -211,7 +211,12 @@ kubectl apply -f [file_name]
 ```    
   
 
-## Secrets
+## Secrets  
+  
+
+[Navigation](#Navigation)  
+      
+  
     
 ** MUST BE CREATED BEFORE DEPLOYMENT **  
   
@@ -267,6 +272,10 @@ kubectl get secret
    
 ### Creating your config file
   
+
+[Navigation](#Navigation)  
+      
+
 
 1. Create a yaml file  
 ```
@@ -403,6 +412,9 @@ kubectl delete deployment [depl-name]
 
 # General
 
+
+[Navigation](#Navigation)  
+      
 
 
 ## Create example usage    
@@ -570,7 +582,13 @@ Other Commands:
   
 # Theory  
   
+  
 
+
+[Navigation](#Navigation)  
+      
+  
+  
 
   **DEPLOYMENT** manages a 
     
@@ -675,6 +693,11 @@ Use Yaml validator online.
   
 
 # Nana Project Review
+  
+  
+
+[Navigation](#Navigation)  
+      
   
 
 This is a recreation of the project created by Nana [here](https://www.youtube.com/watch?v=X48VuDVv0do&t=5057s&ab_channel=TechWorldwithNana)  
