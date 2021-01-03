@@ -13,11 +13,13 @@
     - [Edit Deployment Image](#Edit-Deployment-Image)
 4. [Create Deployment from Configuration File](#Create-Deployment-from-Configuration-File) 
     - [Secrets](#Secrets)
+    - [CONFIG MAP](#CONFIG-MAP)
     - [Creating your config file](#Creating-your-config-file)
     - [SSH into pod](#SSH-into-pod)  
-5. [Debug Commands](#Debug-Commands) 
-6. [SoloProject](#d)
-7. [Nana Project Review](#Nana-Project-Review)   
+5. [External Service](#External-Service)
+6. [Debug Commands](#Debug-Commands) 
+7. [SoloProject](#d)
+8. [Nana Project Review](#Nana-Project-Review)   
 99. [Theory](#Theory)  
   
   
@@ -35,7 +37,7 @@
 ### High Level Steps
       
 1. Start Minikube 
-2. Deploy secrets with kubectl 
+2. Deploy secrets,configmap with kubectl 
 3. Deploy config
   
 - Decide what you want to build
@@ -249,6 +251,8 @@ echo -n 'username' | base64
 
 Reference the secret with the following in the `env` section using `valueFrom` and `secretKeyRef`:  
   
+** NAME MUST BE THE ENV VAR SPECIFIED IN THE DOCUMENTATION**  
+
 ```yaml
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
@@ -273,7 +277,27 @@ kubectl get secret
 ```  
   
 
+## CONFIG MAP
+  
+- Centralises referneces 
+- saves updating multiple configs  
+  
 
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongodb-configmap
+data:
+  database_url: mongodb-service
+```
+    
+- Apply  
+
+```
+kubectl apply -f mongo-configmap.yaml
+```
+  
    
 ### Creating your config file
   
@@ -398,9 +422,42 @@ kubectl delete deployment [depl-name]
 
 
 
+# External Service  
+      
 
+[Navigation](#Navigation)  
+      
 
+- Defined as `type: loadBalancer` in service configuration  
+- Required a `nodePort` to be defined  
+- This is the port you put in the browser to access it 
+- It has a range from (30000 to 32767)
 
+```yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongo-express
+  type: LoadBalancer  
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30000
+```
+  
+Note when we run `kubectl get service` we have our loadbalancer with two IPs (internal/external)
+  
+
+```sh 
+NAME                    TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+mongo-express-service   LoadBalancer   10.110.77.9   <pending>     8081:30000/TCP   10m
+mongodb-service         ClusterIP      10.97.33.92   <none>        27017/TCP        62m
+```
 
 
 
@@ -731,6 +788,11 @@ nodePort: 30000
     - Modify mongo-deployment file with username and password key  
     - `kubectl apply -f secrets.yaml`  
     - `kubectl get secret`  
+   Set up **configmap file**. 
+    - Modify mongoexpress file with details
+    - `kubectl apply -f mongo-configmap.yaml`  
+    - `kubectl get configmap`   
+
 2. Setup **mongodb.yaml** deployment   
     - From documentation it needs to know: 
     - Which creds to authenticate `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` 
@@ -739,12 +801,19 @@ nodePort: 30000
 **Validation**
     - Validate: `kubectl get all | grep mongodb`  
     - Validate Service: `kubectl describe service mongodb-service`
-    - Validate IP matches Pod IP `kubectl get pod -o wide`  
+    - Validate IP matches Pod IP `kubectl get pod -o wide`   
+
 3. Setup **Mongoexpress** service  
     - From documentation it needs to know: 
     - Which Database to connect to: `ME_CONFIG_MONGODB_SERVER`
     - Which creds to authenticate `ME_CONFIG_MONGODB_ADMINUSERNAME` and `ME_CONFIG_MONGODB_ADMINPASSWORD`
 
+    - Create express service 
+      - Add type: `loadBalancer` 
+  
+    - `kubectl apply -f mongo-express.yaml` 
+    - Note your service isn't default `clusterIP` its `loadBalancer`  
+    - `kubectl logs mongo-express-pod`  check for listening and `db connected` 
 
   
 
