@@ -662,7 +662,7 @@ I.e. analytics bit comes first.
 Instead of having one host and multiple paths, we have multiple hosts with one path.  
 Each represents a subdomain.  
   
-  
+
 ```yaml  
 apiVersion: networking.k8.io/v1beta1  
 kind: ingress 
@@ -672,18 +672,59 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-arget: /
 spec:  
   rules:  
-  - host: myapp.com  
+  - host: analytics.myapp.com  
     http:
       paths:
-      - path: /analytics
         backend:
           servicename: analytics-service
           serviceport: 3000
-      - path: /shopping
+  - host: shopping.myapp.com  
+    http:
+      paths:
         backend:
           servicename: shopping-service
-          serviceport: 8080    
+          serviceport: 8080  
+```    
+  
+## Configuring TLS Certificate  
+  
+It's easy to configure https forwarding in ingress.    
+Ensure you have the TLS certificate saved in the cluster as a secret.  
+  
+  
+Just define the following above rules section under the spec.  
+
+```yaml
+  tls:
+  - hosts:
+    - myapp.com 
+    secretName: myapp-secret-tls  
+```
+  
+The secrets look like the following
+  
+
+```yaml
+apiVersion: v1
+kind: secret
+metadata:
+  name: myapp-secret-tls
+  amespace: default
+data:
+  tls.crt: base64 encoded cert 
+  tls.key: base64 encoded key
+type: kubernetes.io/tls
 ```  
+  
+- Just base64 the value.
+- data needs to be `tls.crt` and `tls.key`    
+- Values have to be the file contents, not the path  
+  
+Remember to keep secret in the same namespace.   
+
+
+  
+
 
 
 # Useful Stuff
