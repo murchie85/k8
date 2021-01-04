@@ -355,7 +355,7 @@ kubectl apply -f nginx-deployment.yaml
   
 - edit yaml file 
  
-```
+```yaml
 replicas: 2
 ```  
  
