@@ -16,8 +16,10 @@
     - [CONFIG MAP](#CONFIG-MAP)
     - [Creating your config file](#Creating-your-config-file)
     - [SSH into pod](#SSH-into-pod)  
-5. [External Service](#External-Service)   
-    - [Ingress](#Ingress)
+5. [Ingress](#Ingress)
+    - [External Service](#External-Service) 
+    - [Default Backend](#Default-Backend)
+    - [Ingress Usecases](#Ingress-Usecases)
 6. [Useful Stuff](#Useful-Stuff)
 7. [Debug Commands](#Debug-Commands) 
 8. [SoloProject](#d)
@@ -605,13 +607,83 @@ i.e
 ```    
     
 Ingress pod will now forward this rule to the ingress service.  
+  
+## Default Backend
+`kubectl describe ingress myapp-ingress -n [namespace]`  
+  
+Note the `default-http-backend:80 (<none>)`  this is used if there is no rule/root to map to backend service.  
+It's good for handling custom error messages.   
+   
+![](images/defaultbackend)
+To set this up you need: 
 
+- create internal service with same name `default-http-backend`  
+- Port no
 
   
-
+## Ingress Usecases
+  
+### Multiple paths for same host
+  
+```yaml  
+apiVersion: networking.k8.io/v1beta1  
+kind: ingress 
+metadata:  
+  name: simple-fanout-example 
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-arget: /
+spec:  
+  rules:  
+  - host: myapp.com  
+    http:
+      paths:
+      - path: /analytics
+        backend:
+          servicename: analytics-service
+          serviceport: 3000
+      - path: /shopping
+        backend:
+          servicename: shopping-service
+          serviceport: 8080    
+```  
+  
+This gives two paths for two urls:  
+`myapp.com/analytics-service`   -> analytics service -> analytics pod
+and  
+`myapp.com/shopping-service`    -> shopping service -> shopping pod  
+  
+### Multiple subdomains  
   
 
-
+Instead of `http://myapp.com/analytics` we get `http://analytics.myapp.com`
+  
+I.e. analytics bit comes first.  
+    
+Instead of having one host and multiple paths, we have multiple hosts with one path.  
+Each represents a subdomain.  
+  
+  
+```yaml  
+apiVersion: networking.k8.io/v1beta1  
+kind: ingress 
+metadata:  
+  name: simple-fanout-example 
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-arget: /
+spec:  
+  rules:  
+  - host: myapp.com  
+    http:
+      paths:
+      - path: /analytics
+        backend:
+          servicename: analytics-service
+          serviceport: 3000
+      - path: /shopping
+        backend:
+          servicename: shopping-service
+          serviceport: 8080    
+```  
 
 
 # Useful Stuff
