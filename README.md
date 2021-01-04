@@ -463,7 +463,7 @@ spec:
     - protocol: TCP
       port: 8081
       targetPort: 8081
-      nodePort: 30000
+      nodePort: 30000  ---> entry 
 ```
   
 Note when we run `kubectl get service` we have our loadbalancer with two IPs (internal/external)
