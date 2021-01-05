@@ -23,7 +23,12 @@ https://github.com/murchie85/k8/blob/master/README.md
 
 **VM** `is a virtual machine, (think of it like another computer in your computer, with its own Operating System OS). Example is you could run a Mac OS on your Windows OS`      
 **Docker** `is a strip down VM, lightweight, you run a single app in it only, its easy to ship and solves machine compatibility issues (like an app that runs on Mac but not Windows).`    
-**Kubernetes** `Bundles lots of Docker containers, manages them so you can have a full infrastructure roll out at a click of a button.`       
+**Kubernetes** `Bundles lots of Docker containers, manages them so you can have a full infrastructure roll out at a click of a button.`         
+  
+**WHY THO?** Docker containers are small, fast and are little isolated bubbles on your computer, so you can build a full app there without messing up your computer system. Building docker containers one at a time can be tedius, and you may want to orchastrate a bunch of them, such as one for your app, another for your database, another for the website front end etc. That's where Kubernetes comes in.  
+  
+Kubernetes manages these containers, but has its own terminology, more basics can be found [here](https://kubernetes.io/docs/tutorials/kubernetes-basics/)  
+ 
     
 ### Introduction  
 
