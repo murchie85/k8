@@ -22,9 +22,9 @@ https://github.com/murchie85/k8/blob/master/README.md
 
 ## Super Super Super Simplified  
 
-**VM** is a virtual machine, (think of it like another computer in your computer, with its own OS)
-**Docker** is a strip down VM, lightweight, you run a single app in it only, its easy to ship and solves machine compatibility issues (like an app that runs on Mac but not Windows)
-**Kubernetes** Bundles lots of Docker containers, manages them so you can have a full infrastructure roll out at a click of a button. 
+**VM** `is a virtual machine, (think of it like another computer in your computer, with its own OS).`  
+**Docker** `is a strip down VM, lightweight, you run a single app in it only, its easy to ship and solves machine compatibility issues (like an app that runs on Mac but not Windows).`  
+**Kubernetes** `Bundles lots of Docker containers, manages them so you can have a full infrastructure roll out at a click of a button.`   
   
 Kubernetes is a container orchastration tool that is extemely popular in development, devops and infrastructure. It can be complicated to learn as it is built upon the concepts of containerisation (docker), Containers can be thought of as a strip down vm, lightweight and designed to run a single app only. Kubernetes is meant to manage multiple containers at scale. 
   
