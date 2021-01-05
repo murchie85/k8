@@ -14,16 +14,8 @@
 [Navigation](#Navigation)  
   
 - Don't need to modity replicasets   
-- Secrets need to be applied before cluster spins up. 
-    
-## Useful KUBECTL Commands    
-
-```sh
-kubectl get all    // get everything
+- Secrets need to be applied before cluster spins up.   
   
-
-kubectl delete deployment nginx-depl
-```
 ## Useful MINIKUBE commands    
 
   
@@ -36,7 +28,24 @@ minikube dashboard
 minkube puase
 minikube unpause
 ```
+    
+
+
+    
+## Useful KUBECTL Commands    
+
+```sh
+kubectl get all    // get everything
   
+
+kubectl delete deployment nginx-depl
+```  
+**SSH into pod:** `kubectl exec -it[pod name] -- bin/bash` 
+  
+
+**Delete Deployment:** `kubectl delete deployment [depl-name]` 
+
+
 
 ## Create example usage    
 ```sh 
@@ -53,9 +62,7 @@ In the options we can specify more than one replica set.
   
 ## Debug Commands
 
-[Navigation](#Navigation)  
       
-
 - SSH into pod
 - Get Logs 
 - Describe pods
