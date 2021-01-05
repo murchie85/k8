@@ -14,9 +14,9 @@
 8. [Helm](#Helm)
 9. [Theory](chapters/theory/README.md)
 
-[ [SoloProject](#d) ]  [ [Nana Project Review](chapters/nana/README.md) ] 
+[ [My Project Review](#d) ]  [ [Nana Project Review](chapters/nana/README.md) ] 
   
-
+https://github.com/murchie85/k8/blob/master/README.md
   
 ### Introduction
   
@@ -30,15 +30,24 @@ These notes are not designed as a tutorial, rather go to notes from resources in
 
 ### High Level Steps
       
-1. Start Minikube 
-2. Deploy secrets,configmap with kubectl 
-3. Deploy config
+1. Start your Kubernetes Cluster such as Minikube 
+2. Deploy secrets,configmap etc that needs to be in place before cluster is set up 
+3. Deploy configuration files
+4. Test and validate
+    
+## Building out your own project   
   
+
 - Decide what you want to build
+- Plan it out carefully
+	- Will you need Networking?
+	- Will you need persistent storage?
 - Read docker requirements for the images you use
 - create config files
-- spin up   
+- spin up your cluster  
 
+
+## Example Commands for Spinning up a Quick Cluster
 
 ```sh
 minikube start --vm-driver=hyperkit     # starts minikube
@@ -56,7 +65,15 @@ kubectl delete deployment nginx-depl    # deletes
 ```
     
   
-
+# Navigation
+  
+1. [Introduction](#Introduction)
+2. [Start up minikube](chapters/minikube/README.md)   
+3. [Deployments](chapters/deployments/README.md)
+4. [External Services & Ingress](chapters/ingress/README.md)
+5. [Useful Commands & Debugging](chapters/debug/README.md)
+8. [Helm](#Helm)
+9. [Theory](chapters/theory/README.md)
 
 
 
