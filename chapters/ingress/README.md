@@ -1,5 +1,7 @@
 # External Service & Ingress   
-  
+    
+![](https://boxboat.com/2018/07/02/kubernetes-nginx-ingress-tls-secrets-all-namespaces/featured.png)
+
 **[Return to Main Page](../../README.md)**  
   
   
