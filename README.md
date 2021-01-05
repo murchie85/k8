@@ -10,7 +10,7 @@
 2. [Start up minikube](chapters/minikube/README.md)   
 3. [Deployments](chapters/deployments/README.md)
 4. [External Services & Ingress](chapters/ingress/README.md)
-5. [Debugging & Useful Commands](chapters/debug/README.md)
+5. [Useful Commands & Debugging](chapters/debug/README.md)
 8. [Helm](#Helm)
 9. [Theory](chapters/theory/README.md)
 
