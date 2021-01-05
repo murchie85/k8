@@ -1,6 +1,11 @@
 # Nana Project Review 
+    
+![](https://i.ytimg.com/vi/X48VuDVv0do/maxresdefault.jpg)  
   
+
 **[Return to Main Page](../../README.md)**  
+  
+*Images and content here all can be found [here](https://www.youtube.com/watch?v=X48VuDVv0do&t=8684s&ab_channel=TechWorldwithNana)*  
   
   
 ## Navigation  
