@@ -8,7 +8,8 @@
 # Navigation
   
 1. [High Level Steps](#High-Level-Steps)
-2. [Start up minikube](#Start-up-minikube)   
+2. [Start up minikube](chapters/minikube/README.md)   
+3. [Deployments](chapters/deployments/README.md)
 3. [Creating Deployment From Image](#Creating-Deployment-From-Image) 
     - [Edit Deployment Image](#Edit-Deployment-Image)
 4. [Create Deployment from Configuration File](#Create-Deployment-from-Configuration-File) 
@@ -22,8 +23,9 @@
     - [Ingress Usecases](#Ingress-Usecases)
 6. [Useful Stuff](#Useful-Stuff)
 7. [Debug Commands](#Debug-Commands) 
-8. [SoloProject](#d)
-9. [Nana Project Review](#Nana-Project-Review)   
+8. [Helm](#Helm)
+9. [SoloProject](#d)
+10. [Nana Project Review](#Nana-Project-Review)   
 99. [Theory](#Theory)  
     - [Sample Config File](#Sample-Config-File)
     - [NameSpace](#NameSpace)  
@@ -835,7 +837,20 @@ kubectl get deployment nginx-deployment -o yaml
 
 
 
+# Helm  
+  
 
+Package Manager for Kubernetes, like `apt/yum/homebrew` for kubernetes.   
+  
+To package collection of YAML files and distribute to public registry.  
+  
+For Elastic Stack for logging you would need:  
+  
+- Stateful set  
+- config map 
+- K8s User with permissions  
+- Secret  
+- Services
 
 
 
