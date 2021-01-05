@@ -1,5 +1,8 @@
 # Theory 
-  
+    
+![](https://dzone.com/storage/temp/9056588-kubectl-commands-cheat-sheet.png)
+
+
 **[Return to Main Page](../../README.md)**  
   
   

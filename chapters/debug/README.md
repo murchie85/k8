@@ -1,4 +1,7 @@
-# Useful Commands and Debugging    
+# Useful Commands and Debugging     
+  
+![](https://miro.medium.com/max/1121/1*Rd7EUpPf7qnlthT5XEL5zg.png)
+
 **[Return to Main Page](../../README.md)**    
 
   
