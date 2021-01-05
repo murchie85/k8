@@ -17,15 +17,16 @@
 [ [My Project Review](#d) ]  [ [Nana Project Review](chapters/nana/README.md) ] 
   
 https://github.com/murchie85/k8/blob/master/README.md
-  
-### Introduction
+    
 
-## Super Super Super Simplified  
+## Super Super Super Simplified  Introduction
 
-**VM** `is a virtual machine, (think of it like another computer in your computer, with its own OS).`  
-**Docker** `is a strip down VM, lightweight, you run a single app in it only, its easy to ship and solves machine compatibility issues (like an app that runs on Mac but not Windows).`  
-**Kubernetes** `Bundles lots of Docker containers, manages them so you can have a full infrastructure roll out at a click of a button.`   
-  
+**VM** `is a virtual machine, (think of it like another computer in your computer, with its own Operating System OS). Example is you could run a Mac OS on your Windows OS`      
+**Docker** `is a strip down VM, lightweight, you run a single app in it only, its easy to ship and solves machine compatibility issues (like an app that runs on Mac but not Windows).`    
+**Kubernetes** `Bundles lots of Docker containers, manages them so you can have a full infrastructure roll out at a click of a button.`       
+    
+### Introduction  
+
 Kubernetes is a container orchastration tool that is extemely popular in development, devops and infrastructure. It can be complicated to learn as it is built upon the concepts of containerisation (docker), Containers can be thought of as a strip down vm, lightweight and designed to run a single app only. Kubernetes is meant to manage multiple containers at scale. 
   
 In short kubernetes lets you deploy a full end to end digital service, such as a database, front end and back end all in the one ecosystem. It allows for scaling accross multiple machines on prem or on the cloud and lets you manage routing such as ingress and namespaces.   
